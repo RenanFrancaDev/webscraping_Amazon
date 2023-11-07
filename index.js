@@ -77,6 +77,7 @@ const readFromFile = (filename) => {
     const promiseCallback = (resolve, reject) => {
         filesystem.readFile(filename, 'utf8', (error, contents) => {
             if(error) {
+            console.log('there is not cache')
             resolve(null);
             }
             resolve(contents)
@@ -96,7 +97,7 @@ const getPage = () => {
     return axios.get(url, options).then((response) => response.data)
 }
 
-//GET QUERY READY
+//GET QUERY READY, INF NOT, IT WILL CREATE
 const getCachedPage = (path) => {
 
     const filename = `cache/${slug(path)}.html`;
@@ -105,12 +106,13 @@ const getCachedPage = (path) => {
     const promiseCallback = async (resolve, reject) => {
 
         const cachedHtml = await readFromFile(filename);
-
-
-        const html = await getPage(path);
-        writeToFile(html, filename);
-
-        resolve(true)
+        if(!cachedHtml){
+            const html = await getPage(path);
+            writeToFile(html, filename);
+            resolve(html)
+            return
+        }
+            resolve(cachedHtml)
 
     }
 
