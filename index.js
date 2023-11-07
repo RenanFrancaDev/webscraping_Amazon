@@ -79,14 +79,14 @@ const getPage = () => {
     const options = {
         headers: browserHeaders,
     };
-    
+
     return axios.get(url, options).then((response) => response.data)
 }
 
 //GET QUERY READY
 const getCachedPage = (path) => {
 
-    const filename = `${slug(path)}.html`;
+    const filename = `cache/${slug(path)}.html`;
     console.log(path, filename)
     const promiseCallback = async (resolve, reject) => {
         const html = await getPage(path);
