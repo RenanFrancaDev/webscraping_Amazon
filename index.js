@@ -3,7 +3,7 @@ const filesystem = require('fs')
 
 
 const BASE_URL = 'https://www.amazon.com.br/'
-const path = 's?k=carro&page=0'
+const path = 's?k=carro&page=1'
 
 const  browserHeaders = {
 
