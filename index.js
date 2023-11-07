@@ -1,8 +1,11 @@
 const axios = require('axios');
+const filesystem = require('fs')
+
 
 const BASE_URL = 'https://www.amazon.com.br/'
 
 const  browserHeaders = {
+
 'Accept':
 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
 'Accept-Encoding': 'gzip, deflate, br',
@@ -32,14 +35,35 @@ const  browserHeaders = {
 
 }
 
+//FUNCTION TO CREATE FILE HTML
+const writeToFile = (data, path) => {
+
+    const promiseCallback = (resolve, reject) => {
+        filesystem.writeFile(path, data, (error) => {
+            if(error){
+                reject(error);
+                return
+            }
+            resolve(true)
+        })
+    }
+    return new Promise(promiseCallback);
+}
+
+
 const getPage = () => {
 
     const path = 's?k=carro&page=0'
     const url = `${BASE_URL}${path}`
+    const options = {
+        headers: browserHeaders,
+    };
 
-    return axios.get(url)
+    return axios.get(url, options).then((response) => response.data)
     
 }
+
+
 
 getPage().then(console.log).catch(console.error);
 
