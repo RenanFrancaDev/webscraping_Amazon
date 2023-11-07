@@ -72,6 +72,19 @@ const writeToFile = (data, path) => {
     return new Promise(promiseCallback);
 }
 
+//verify if the consult alreay exist
+const readFromFile = (filename) => {
+    const promiseCallback = (resolve, reject) => {
+        filesystem.readFile(filename, 'utf8', (error, contents) => {
+            if(error) {
+            resolve(null);
+            }
+            resolve(contents)
+        })
+    }
+    return new Promise(promiseCallback)
+}
+
 
 const getPage = () => {
 
@@ -88,7 +101,12 @@ const getCachedPage = (path) => {
 
     const filename = `cache/${slug(path)}.html`;
     console.log(path, filename)
+
     const promiseCallback = async (resolve, reject) => {
+
+        const cachedHtml = await readFromFile(filename);
+
+
         const html = await getPage(path);
         writeToFile(html, filename);
 
