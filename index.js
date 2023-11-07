@@ -3,6 +3,7 @@ const filesystem = require('fs')
 
 
 const BASE_URL = 'https://www.amazon.com.br/'
+const path = 's?k=carro&page=0'
 
 const  browserHeaders = {
 
@@ -35,6 +36,27 @@ const  browserHeaders = {
 
 }
 
+//Create slug from string JavaScript
+
+const slug = (str) => {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+  
+    // remove accents, swap ñ for n, etc
+    var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+    var to   = "aaaaeeeeiiiioooouuuunc------";
+    for (var i=0, l=from.length ; i<l ; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+        .replace(/\s+/g, '-') // collapse whitespace and replace by -
+        .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+}
+
+
 //FUNCTION TO CREATE FILE HTML
 const writeToFile = (data, path) => {
 
@@ -53,17 +75,31 @@ const writeToFile = (data, path) => {
 
 const getPage = () => {
 
-    const path = 's?k=carro&page=0'
     const url = `${BASE_URL}${path}`
     const options = {
         headers: browserHeaders,
     };
-
-    return axios.get(url, options).then((response) => response.data)
     
+    return axios.get(url, options).then((response) => response.data)
+}
+
+//GET QUERY READY
+const getCachedPage = (path) => {
+
+    const filename = `${slug(path)}.html`;
+    console.log(path, filename)
+    const promiseCallback = async (resolve, reject) => {
+        const html = await getPage(path);
+        writeToFile(html, filename);
+
+        resolve(true)
+
+    }
+
+    return new Promise(promiseCallback)
 }
 
 
 
-getPage().then(console.log).catch(console.error);
+getCachedPage(path).then(console.log).catch(console.error);
 
