@@ -1,99 +1,37 @@
-const axios = require('axios');
-const cheerio = require('cheerio')
-const browserHeaders = require('./src/object/browserHeaders')
-const slug = require('./src/helpers/slug')
-// const readFromFile = require('./readFromFile')
-// const writeToFile = require('./writeFromFile')
-const filesystem = require('fs')
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var logger = require('morgan');
+
+var indexRouter = require('./routes/index');
+
+var app = express();
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
 
 
-const BASE_URL = 'https://www.amazon.com.br/'
-const path = 's?k=carro&page=1'
+// app.set("views", path.join(__dirname, "views"));
+// app.set("view engine", "jade");
 
-const getPage = () => {
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
-    const url = `${BASE_URL}${path}`
-    const options = {
-        headers: browserHeaders,
-    };
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    return axios.get(url, options).then((response) => response.data)
-}
-
-//verify if the consult alreay exist
-const readFromFile = (filename) => {
-    const promiseCallback = (resolve, reject) => {
-        filesystem.readFile(filename, 'utf8', (error, contents) => {
-            if(error) {
-            console.log('there is not cache')
-            resolve(null);
-            }
-            resolve(contents)
-        })
-    }
-    return new Promise(promiseCallback)
-}
-
-//FUNCTION TO CREATE FILE HTML
-const writeToFile = (data, path) => {
-
-    const promiseCallback = (resolve, reject) => {
-        filesystem.writeFile(path, data, (error) => {
-            if(error){
-                reject(error);
-                return
-            }
-            resolve(true)
-        })
-    }
-    return new Promise(promiseCallback);
-}
-
-//GET QUERY READY, INF NOT, IT WILL CREATE
-const getCachedPage = (path) => {
-
-    const filename = `cache/${slug(path)}.html`;
-    console.log(path, filename)
-
-    const promiseCallback = async (resolve, reject) => {
-
-        const cachedHtml = await readFromFile(filename);
-        if(!cachedHtml){
-            const html = await getPage(path);
-            writeToFile(html, filename);
-            resolve(html)
-            return
-        }
-            resolve(cachedHtml)
-
-    }
-
-    return new Promise(promiseCallback)
-}
-
-const getPageItems = (html) => {
-
-    const $ = cheerio.load(html);
-
-    const promiseCallback = (resolve, reject) =>{
-
-        objects = []
-        const results = $('[data-component-type=s-search-result]');
-        results.each((index, results) => {
-            objects[index] = {
-                title: $(results).find('a.a-link-normal.s-underline-text.s-underline-link-text.s-link-style.a-text-normal span.a-color-base.a-text-normal').text()
-                
-            }
-        })
-        console.log(objects)
-
-        resolve(true)
-    }
-
-    return new Promise(promiseCallback)
-}
-
-
-getCachedPage(path).then(getPageItems).then(console.log).catch(console.error);
-
-
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+console.log('server started at: http://localhost:3000')
+module.exports = app;
