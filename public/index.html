@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amazan WebScrapper</title>
-    <link rel="stylesheet" href="./public/style.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="./style.css" type="text/css" media="screen">
 </head>
 <body>
     <main>
         <div class="title">
             <h1>WebScrapper</h1>
-            <figure><img src="./public/image/amazon.png" alt="Amazon Logo" width="250px" height="75px"></figure>
+            <figure><img src="./image/amazon.png" alt="Amazon Logo" width="250px" height="75px"></figure>
         </div>
-            <form onsubmit="search(e)">
+            <form onsubmit="search(event)">
                 <label for="keyword">
                     What do you wish? Let me Know!
-                    <input required id="keyword" name="keyword" type="text">
+                    <input  id="keyword" name="keyword" type="text">
                     <button type="submit" id="searchBtn">
                         Search
                     </button>
@@ -74,6 +74,7 @@
             </div>
         </section>
     </main>
+    <script src="./main.js"></script>
 </body>
-<script src="./index.html"></script>
+
 </html>
