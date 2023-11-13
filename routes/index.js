@@ -1,5 +1,5 @@
 var express = require("express");
-const scrape = require("../src/functions/scrape");
+const getCachedPage = require("../src/functions/scrape");
 var validator = require("validator");
 
 var router = express.Router();
@@ -17,7 +17,7 @@ router.get("/api/scrape", async function (req, res, next) {
 				"keyword query string required, example query: /api/scrape?keyword=hat"
 			);
 
-  scrape(keyword).then((products) => {
+  getCachedPage(keyword).then((products) => {
     if (!products)
      	return res
         .status(400)
