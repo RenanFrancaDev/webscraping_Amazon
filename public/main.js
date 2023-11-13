@@ -7,10 +7,28 @@ const objectsSection = document.getElementById("objects")
  async function search(e){
     let keyword = input.value;
     e.preventDefault();
-    console.log(keyword)
 
     let res = await fetch(API_URL + keyword)
     const data = await res.json()
     console.log(data)
+    showProducts(data.products)
+}
+
+function showProducts(products){
+    console.log(products)
+    products.map((product) => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('card')
+    })
+
+    const img = document.createElement("img");
+    img.style.width = "200px";
+    img.style.height = "200px";
+    img.src = product.image;
+    img.alt = product.title.substring(0, 20)
+
+    productCard.append(img);
+    objectsSection.appendChild(productCard)
+
 }
 

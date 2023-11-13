@@ -78,4 +78,4 @@ const getPageItems = (html) => {
 
 getCachedPage(path).then(getPageItems).then(console.log).catch(console.error);
 
-module.exports = getCachedPage;
+module.exports = getPageItems;
