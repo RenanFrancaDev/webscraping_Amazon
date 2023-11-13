@@ -4,9 +4,13 @@ const input = document.getElementById("keyword")
 const objectsSection = document.getElementById("objects")
 
 
-function search(e){
+ async function search(e){
     let keyword = input.value;
     e.preventDefault();
     console.log(keyword)
+
+    let res = await fetch(API_URL + keyword)
+    const data = await res.json()
+    console.log(data)
 }
 
