@@ -7,15 +7,16 @@ const objectsSection = document.getElementById("objects")
  async function search(e){
     let keyword = input.value;
     e.preventDefault();
-
     let res = await fetch(API_URL + keyword)
     const data = await res.json()
-    console.log(data)
+    console.log(res)
+    console.log(data.products)
+
+    
     showProducts(data.products)
 }
 
 function showProducts(products){
-    console.log(products)
     products.map((product) => {
         const productCard = document.createElement('div');
         productCard.classList.add('card')

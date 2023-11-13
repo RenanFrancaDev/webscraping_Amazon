@@ -8,7 +8,7 @@ const filesystem = require('fs')
 
 
 const BASE_URL = 'https://www.amazon.com.br/'
-const path = 's?k=carro&page=1'
+const path = 's?k='
 const selectors = {
     products: "[data-component-type=s-search-result]",
 	title: "a.a-link-normal.s-underline-text.s-underline-link-text.s-link-style.a-text-normal span.a-color-base.a-text-normal",
@@ -29,28 +29,28 @@ const getPage = () => {
 
 
 //GET QUERY READY, INF NOT, IT WILL CREATE
-const getCachedPage = (path) => {
+// const scrape = (path) => {
 
-    const filename = `cache/${slug(path)}.html`;
-    console.log(path, filename)
+//     // const filename = `cache/${slug(path)}.html`;
+    
 
-    const promiseCallback = async (resolve, reject) => {
+//     const promiseCallback = async (resolve, reject) => {
 
-        const cachedHtml = await readFromFile(filename);
-        if(!cachedHtml){
-            const html = await getPage(path);
-            writeToFile(html, filename);
-            resolve(html)
-            return
-        }
-            resolve(cachedHtml)
+//         const cachedHtml = await readFromFile(filename);
+//         if(!cachedHtml){
+//             const html = await getPage(path);
+//             writeToFile(html, filename);
+//             resolve(html)
+//             return
+//         }
+//             resolve(cachedHtml)
 
-    }
+//     }
 
-    return new Promise(promiseCallback)
-}
+//     return new Promise(promiseCallback)
+// }
 
-const getPageItems = (html) => {
+const scrape = (html) => {
 
     const $ = cheerio.load(html);
 
@@ -64,18 +64,18 @@ const getPageItems = (html) => {
                 rating: $(results).find(selectors.rating).text(),
                 reviews: $(results).find(selectors.reviews).text(),
                 image: $(results).find(selectors.image).text()
-
             }
         })
+        // console.log(objects)
         console.log(objects)
 
-        resolve(true)
+        resolve(objects)
     }
 
     return new Promise(promiseCallback)
 }
 
 
-getCachedPage(path).then(getPageItems).then(console.log).catch(console.error);
+scrape(path).then(getPageItems).catch(console.error);
 
-module.exports = getPageItems;
+module.exports = scrape;

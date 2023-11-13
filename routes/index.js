@@ -1,5 +1,5 @@
 var express = require("express");
-const getCachedPage = require("../src/functions/scrape");
+const scrape = require("../src/functions/scrape");
 var validator = require("validator");
 
 var router = express.Router();
@@ -17,14 +17,13 @@ router.get("/api/scrape", async function (req, res, next) {
 				"keyword query string required, example query: /api/scrape?keyword=hat"
 			);
 
-  getCachedPage(keyword).then((products) => {
+  scrape(keyword).then((products) => {
     if (!products)
      	return res
         .status(400)
         .json(
           "something went wrong when scraping Amazon, contact the developer."
         );
-
     res.json({//returning the data
       keyword,
       products_count: products.length,
