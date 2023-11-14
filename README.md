@@ -1,4 +1,4 @@
-# Fire Development - Amazon Web Scrapping
+# Fire Development - Amazon Web Scraping
 
 Amazon Scraper here you can find products from Amazon website
 Project Full Stack with Node and JavaScript, building routes that get info from Amazon
