@@ -2,19 +2,83 @@
     --amazon-yellow: #d38016
 }
 
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    /* background-image: linear-gradient(#c1c1c1, #0a0a0a); */
+    background-repeat: no-repeat;
+    background-size:cover;
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    min-width: 380px;
+}
+
 main{
-    margin: auto;
-    width: 90vw;
+    margin: 10px;
+    min-width: 375px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .title{
+     /* background-image: linear-gradient(#c1c1c1, #0a0a0a); */
+    margin: 20px 0;
     display: flex;
     justify-content: center;
+    gap: 5%;
+}
+
+form{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+}
+
+h3{
+    text-align: right;
+}
+
+label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1%;
+}
+
+input{
+    height: 32px;
+    min-width: 200px;
+    width: 70%;
+    border-radius: 10px;
+    padding-left: 5px;
+}
+
+button{
+    background-color: var(--amazon-yellow);
+    height: 35px;
+    width: 120px;
+    padding: 5px 20px;
+    font-family: "Amazon Ember",Arial,sans-serif;
+    border-radius: 20px;
+    transition: ease 0.4s;
+}
+
+button:hover{
+    cursor: pointer;
+    padding: 7px 25px;
+    opacity: 0.7;
 }
 
 section{
@@ -24,14 +88,47 @@ section{
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 3%;
+    gap: 5%;
 }
 
 .card{
-    width: 350px;
-    border: 1px solid black;
+    width: 200px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 }
+
+.card h2 {
+    font-family: "Amazon Ember",Arial,sans-serif;
+    font-size: 16px;
+    color: #0F1111;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: wrap; 
+}
+
+.rating{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+@media (max-width:630px){
+    .title, form{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    section{
+        gap: 25px;
+    }
+}
+

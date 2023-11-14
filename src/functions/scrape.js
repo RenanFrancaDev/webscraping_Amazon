@@ -4,7 +4,6 @@ const browserHeaders = require('../object/browserHeaders')
 const slug = require('../helpers/slug')
 // const readFromFile = require('./readFromFile')
 // const writeToFile = require('./writeFromFile')
-// const filesystem = require('fs');
 
 
 
@@ -20,14 +19,7 @@ const selectors = {
 	image: "img.s-image",
 }
 
-// const getPage = () => {  
-    
 
-//     return axios.get(url, options).then((response) => response.data)
-// }
-
-
-//GET QUERY READY, INF NOT, IT WILL CREATE
 async function fetchPage(keyword) {
 
     try {

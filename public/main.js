@@ -22,16 +22,18 @@ function showProducts(products){
         productCard.classList.add('card')
 
     const img = document.createElement("img");
-    img.style.width = "200px";
-    img.style.height = "200px";
+    img.style.maxWidth = "200px";
+    img.style.maxHeight = "200px";
     img.src = product.image;
     img.alt = product.title.substring(0, 20)
 
     const infos = document.createElement('div');
     infos.innerHTML = `
     <h2>${product.title}</h2>
+    <div class="rating">
     <span>${product.rating}</span>
-    <small>${product.reviews}</span>
+    <small>${product.reviews} reviews</span>
+    </div>
     `
 
     productCard.append(img, infos);
