@@ -15,7 +15,7 @@ const objectsSection = document.getElementById("objects")
     showProducts(data.products)
 }
 
-function showProducts(products){
+ function showProducts(products){
     objectsSection.innerHTML = ""
     products.map((product) => {
         const productCard = document.createElement('div');
@@ -28,14 +28,16 @@ function showProducts(products){
     img.alt = product.title.substring(0, 20)
 
     const infos = document.createElement('div');
+    const starsRating = (parseFloat(product.rating.slice(0, 3)) * 110) / 5; //5 stars width=110px, hidding the overflow
+      
+  
     infos.innerHTML = `
     <h2>${product.title}</h2>
     <div class="rating">
-    <span>${product.rating}</span>
-    <small>${product.reviews} reviews</span>
+    <span style="max-width:${starsRating}px; overflow:hidden;">⭐⭐⭐⭐⭐</span>
+    <small>${product.rating.slice(0, 3)} stars out of ${product.reviews} reviews</span>
     </div>
     `
-
     productCard.append(img, infos);
     objectsSection.appendChild(productCard)
 
