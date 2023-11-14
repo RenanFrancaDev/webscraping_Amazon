@@ -12,7 +12,6 @@ const objectsSection = document.getElementById("objects")
     console.log(res)
     console.log(data.products)
 
-    
     showProducts(data.products)
 }
 
@@ -20,7 +19,6 @@ function showProducts(products){
     products.map((product) => {
         const productCard = document.createElement('div');
         productCard.classList.add('card')
-    })
 
     const img = document.createElement("img");
     img.style.width = "200px";
@@ -30,6 +28,8 @@ function showProducts(products){
 
     productCard.append(img);
     objectsSection.appendChild(productCard)
+
+    })
 
 }
 
