@@ -18,8 +18,11 @@ main{
 }
 
 section{
+    width: 100vw;
     margin-top: 50px;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 3%;
 }
