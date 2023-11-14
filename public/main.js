@@ -16,6 +16,7 @@ const objectsSection = document.getElementById("objects")
 }
 
 function showProducts(products){
+    objectsSection.innerHTML = ""
     products.map((product) => {
         const productCard = document.createElement('div');
         productCard.classList.add('card')
@@ -26,7 +27,14 @@ function showProducts(products){
     img.src = product.image;
     img.alt = product.title.substring(0, 20)
 
-    productCard.append(img);
+    const infos = document.createElement('div');
+    infos.innerHTML = `
+    <h2>${product.title}</h2>
+    <span>${product.rating}</span>
+    <small>${product.reviews}</span>
+    `
+
+    productCard.append(img, infos);
     objectsSection.appendChild(productCard)
 
     })
