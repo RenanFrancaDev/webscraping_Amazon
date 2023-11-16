@@ -23,7 +23,7 @@ const selectors = {
 async function fetchPage(keyword) {
 
     try {
-		let res = await axios.get(BASE_URL + keyword, browserHeaders);
+		let res = await axios.get(BASE_URL + keyword, options);
 		return res; //return false to test amazon error response
 	} catch (err) {
 		console.log(err);
