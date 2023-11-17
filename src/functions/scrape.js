@@ -8,9 +8,19 @@ const slug = require('../helpers/slug')
 
 
 const BASE_URL = 'https://www.amazon.com/s?k='
+
 const options = {
-    headers: browserHeaders,
+    headers: {
+		"User-Agent":
+			"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+		Accept: "text/html",
+		Referer: "https://www.amazon.com/",
+		"Accept-Encoding": "gzip, deflate",
+		"X-Requested-With": "XMLHttpRequest",
+		"Cache-Control": "no-cache",
+	},
 };
+
 const selectors = {
     products: "[data-component-type=s-search-result]",
 	title: "a.a-link-normal.s-underline-text.s-underline-link-text.s-link-style.a-text-normal span.a-color-base.a-text-normal",
