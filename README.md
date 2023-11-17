@@ -7,7 +7,6 @@ Project Full Stack with Node and JavaScript, building routes that get info from 
 
 Project working just in localhostot at the moment.
 Next steps:
-put deploy in production,
 HTTP error handling,
 improve UI.
 
