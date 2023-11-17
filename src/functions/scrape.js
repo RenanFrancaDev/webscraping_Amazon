@@ -1,7 +1,5 @@
 const axios = require('axios');
 const cheerio = require('cheerio')
-const browserHeaders = require('../object/browserHeaders')
-const slug = require('../helpers/slug')
 
 
 
